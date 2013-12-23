@@ -1,0 +1,53 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CoffeeScriptNotebook</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Scratch</h1>
+    <p>Enter some CoffeeScript code below and evaluate it with SHIFT-ENTER.
+    Output will be shown below the input.</p>
+    <script type="text/coffeescript">
+        jQuery("#cell1").keyup (ev) ->
+          if ev.keyCode == 13 and ev.shiftKey
+              inputCell = ev.target
+              result =  CoffeeScript.eval inputCell.value
+              $(inputCell).next().text result.toString()
+    </script>
+
+    <textarea id="cell1" rows="3" cols="80">3 + 4</textarea>
+
+    <p class="output">
+
+    </p>
+
+
+    <script src="bower_components/jquery/jquery.js"></script>
+    <!-- Pull coffee-script.js in AFTER all the CoffeeScript. -->
+    <script type="text/javascript" src="/scripts/coffee-script.js"></script>
+
+</div>
+</body>
