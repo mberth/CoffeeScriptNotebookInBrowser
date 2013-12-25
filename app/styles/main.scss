@@ -99,8 +99,18 @@ body {
   border-top: 1px solid #d0d0d0;
 }
 
-.output {
+@mixin output-cell {
   padding-left: 4px;
-  border-left: 2px solid #d0d0d0;
   font-family: monospace;
 }
+
+.output {
+  @include output-cell;
+  border-left: 2px solid #d0d0d0;
+}
+
+.error {
+  @include output-cell;
+  border-left: 2px solid red;
+}
+

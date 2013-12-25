@@ -6,6 +6,14 @@ displayPretty = (obj) ->
   else
     obj.toString()
 
+evaluateCell = (inputCell, outputCell) ->
+  try
+    result = CoffeeScript.eval inputCell.value
+    outputCell.text displayPretty(result)
+  catch error
+    console.error error
+    outputCell.html displayPretty(error) + "<br>See console for details."
+    outputCell.addClass "error"
 
 addKeyMap = (editor, inputCell, outputCell) ->
   editor.addKeyMap
@@ -13,8 +21,7 @@ addKeyMap = (editor, inputCell, outputCell) ->
     "Shift-Enter": (cm) ->
       # save editor contents to textarea
       cm.save()
-      result = CoffeeScript.eval inputCell.value
-      outputCell.text displayPretty(result)
+      evaluateCell(inputCell, outputCell)
 
 
 
