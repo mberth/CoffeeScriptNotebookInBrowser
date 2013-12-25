@@ -102,6 +102,7 @@ body {
 @mixin output-cell {
   padding-left: 4px;
   font-family: "Courier New", Courier, monospace;
+  overflow: scroll;
 }
 
 .output {
