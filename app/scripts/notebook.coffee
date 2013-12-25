@@ -10,6 +10,7 @@ evaluateCell = (inputCell, outputCell) ->
   try
     result = CoffeeScript.eval inputCell.value
     outputCell.text displayPretty(result)
+    outputCell.removeClass "error"
   catch error
     console.error error
     outputCell.html displayPretty(error) + "<br>See console for details."
