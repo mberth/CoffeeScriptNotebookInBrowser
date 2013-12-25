@@ -9,8 +9,15 @@ displayPretty = (obj) ->
 evaluateCell = (inputCell, outputCell) ->
   try
     result = CoffeeScript.eval inputCell.value
-    outputCell.text displayPretty(result)
-    outputCell.removeClass "error"
+    editorDiv = $(inputCell).next(".CodeMirror")
+
+    existingOutput = editorDiv.next(".cell.output")
+    existingOutput.remove()
+    newOutputCell = $('<p class="cell output"></p>')
+
+    editorDiv.after newOutputCell
+    newOutputCell.text displayPretty(result)
+
   catch error
     console.error error
     outputCell.html displayPretty(error) + "<br>See console for details."
