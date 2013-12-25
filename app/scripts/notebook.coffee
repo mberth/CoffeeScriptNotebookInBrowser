@@ -20,6 +20,22 @@ evaluateCell = (inputCell) ->
     newOutputCell.html displayPretty(error) + "<br>See console for details."
     newOutputCell.addClass "error"
 
+findOrCreateCursor = () ->
+  cursor = $("#cursor")
+  if cursor.length == 0
+    cursor = $('<div class="cellCursor" id="cursor"></div>')
+  else
+    cursor = cursor[0]
+
+insertCellCursorAfter = (inputCell) ->
+  editorDiv = $(inputCell).next(".CodeMirror")
+  editorDiv.after findOrCreateCursor()
+
+insertCellCursorBefore = (inputCell) ->
+  editorDiv = $(inputCell).next(".CodeMirror")
+  editorDiv.before findOrCreateCursor()
+
+
 addKeyMap = (editor, inputCell) ->
   editor.addKeyMap
     name: "notebook",
@@ -27,8 +43,24 @@ addKeyMap = (editor, inputCell) ->
       # save editor contents to textarea
       cm.save()
       evaluateCell(inputCell)
-
-
+    "Down" : (cm) ->
+      if cm.getCursor().line == cm.lineCount() - 1
+        # we are at the last line in the cell and want to go down
+        insertCellCursorAfter inputCell
+        cm.getInputField().blur()
+        null
+      else
+        # let CodeMirror handle this
+        CodeMirror.Pass
+    "Up" : (cm) ->
+      if cm.getCursor().line == 0
+        # we are at the first line in the cell and want to go up
+        insertCellCursorBefore inputCell
+        cm.getInputField().blur()
+        null
+      else
+        # let CodeMirror handle this
+        CodeMirror.Pass
 
 makeInputCell = (inputCell) ->
   editor = CodeMirror.fromTextArea inputCell,

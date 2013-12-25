@@ -98,6 +98,7 @@ body {
   border-left: 2px solid #d0d0d0;
   border-top: 1px solid #d0d0d0;
   margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 @mixin output-cell {
@@ -114,5 +115,11 @@ body {
 .error {
   @include output-cell;
   border-left: 2px solid red;
+}
+
+.cellCursor {
+  height: 1px;
+  border-top: 1px solid blue;
+  margin-top: 0px;
 }
 
