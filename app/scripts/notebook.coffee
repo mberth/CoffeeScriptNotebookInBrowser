@@ -29,11 +29,31 @@ findOrCreateCursor = () ->
 
 insertCellCursorAfter = (inputCell) ->
   editorDiv = $(inputCell).next(".CodeMirror")
+  editorDiv.css("background-color", "lightblue")
   editorDiv.after findOrCreateCursor()
 
 insertCellCursorBefore = (inputCell) ->
+  console.log "insertCellCursorBefore", inputCell
   editorDiv = $(inputCell).next(".CodeMirror")
+  editorDiv.css("background-color", "yellow")
   editorDiv.before findOrCreateCursor()
+
+
+moveCellCursorDown = () ->
+  cursor = findOrCreateCursor()
+  cell = $(cursor).next("textarea.cell.input")
+  if cell
+    insertCellCursorAfter(cell)
+
+moveCellCursorUp = () ->
+  console.log "moveCellCursorUp"
+  cursor = findOrCreateCursor()
+  cell = $(cursor).prevUntil("textarea.cell.input").prev()
+  cell = $(cursor).prevUntil(".CodeMirror").prev()
+  cell.css "background-color", "lightgreen"
+  insertCellCursorBefore(cell.prev())
+  #if cell
+  #  insertCellCursorBefore(cell)
 
 
 addKeyMap = (editor, inputCell) ->
@@ -68,6 +88,9 @@ makeInputCell = (inputCell) ->
   addKeyMap editor, inputCell
 
 
-for i in [1, 2]
+for i in [1, 2, 3]
   input = document.getElementById("input_#{i}")
   makeInputCell input
+
+$(document).bind 'keydown', 'down', (ev) -> moveCellCursorDown()
+$(document).bind 'keydown', 'up', (ev) -> moveCellCursorUp()
