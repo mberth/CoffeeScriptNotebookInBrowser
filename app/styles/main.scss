@@ -101,7 +101,7 @@ body {
 
 @mixin output-cell {
   padding-left: 4px;
-  font-family: monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .output {
