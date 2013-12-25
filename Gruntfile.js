@@ -27,6 +27,14 @@ module.exports = function (grunt) {
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
+            coffee: {
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
+                tasks: ['coffee:dist']
+            },
+            coffeeTest: {
+                files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
+                tasks: ['coffee:test']
+            },
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
                 tasks: ['jshint'],
@@ -56,7 +64,8 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/{,*/}*.html',
                     '.tmp/styles/{,*/}*.css',
-                    '<%= yeoman.app %>/images/{,*/}*.{gif,jpeg,jpg,png,svg,webp}'
+                    '<%= yeoman.app %>/images/{,*/}*.{gif,jpeg,jpg,png,svg,webp}',
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js'
                 ]
             }
         },
@@ -137,7 +146,26 @@ module.exports = function (grunt) {
             }
         },
 
-
+        coffee: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/scripts',
+                    src: '{,*/}*.{coffee,litcoffee,coffee.md}',
+                    dest: '.tmp/scripts',
+                    ext: '.js'
+                }]
+            },
+            test: {
+                files: [{
+                    expand: true,
+                    cwd: 'test/spec',
+                    src: '{,*/}*.{coffee,litcoffee,coffee.md}',
+                    dest: '.tmp/spec',
+                    ext: '.js'
+                }]
+            }
+        },
 
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
@@ -336,6 +364,7 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'compass:server',
+                'coffee:dist',
                 'copy:styles'
             ],
             test: [
@@ -375,7 +404,7 @@ module.exports = function (grunt) {
             grunt.task.run([
                 'clean:server',
                 'concurrent:test',
-                'autoprefixer',
+                'autoprefixer'
             ]);
         }
 
