@@ -89,3 +89,17 @@ body {
         border-bottom: 0;
     }
 }
+
+.CodeMirror {
+  /* Set height, width, borders, and global font properties here */
+  height: auto;
+  background-color: #f0f0f0;
+  border-left: 2px solid #d0d0d0;
+  border-top: 1px solid #d0d0d0;
+}
+
+.output {
+  padding-left: 4px;
+  border-left: 2px solid #d0d0d0;
+  font-family: monospace;
+}

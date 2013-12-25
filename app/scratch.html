@@ -18,30 +18,28 @@
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
+
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="bower_components/codemirror/mode/coffeescript/coffeescript.js"></script>
+    <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="bower_components/codemirror/theme/ambiance.css">
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
-
 </head>
 
 <body>
 <div class="container">
     <h1>Scratch</h1>
+
     <p>Enter some CoffeeScript code below and evaluate it with SHIFT-ENTER.
-    Output will be shown below the input.</p>
-    <script type="text/coffeescript">
-        jQuery("#cell1").keyup (ev) ->
-          if ev.keyCode == 13 and ev.shiftKey
-              inputCell = ev.target
-              result =  CoffeeScript.eval inputCell.value
-              $(inputCell).next().text result.toString()
-    </script>
+        Output will be shown below the input...</p>
+
 
     <textarea id="cell1" rows="3" cols="80">3 + 4</textarea>
 
     <p class="output">
-
     </p>
 
 
@@ -50,4 +48,6 @@
     <script type="text/javascript" src="/scripts/coffee-script.js"></script>
 
 </div>
+<script type="text/javascript" src="scripts/notebook.js">
+</script>
 </body>
