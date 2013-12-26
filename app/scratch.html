@@ -36,11 +36,17 @@
     <p>Enter some CoffeeScript code below and evaluate it with SHIFT-ENTER.
         Output will be shown below the input...</p>
 
-
-    <textarea class="cell input" id="input_1" rows="3" cols="80">@a = 3 + 4</textarea>
-    <textarea class="cell input" id="input_2" rows="3" cols="80">@a + 1</textarea>
-    <textarea class="cell input" id="input_3" rows="3" cols="80">1000</textarea>
-
+    <div class="notebook">
+        <div class="cell input">
+            <textarea id="input_1" rows="3" cols="80">@a = 3 + 4</textarea>
+        </div>
+        <div class="cell input">
+            <textarea id="input_2" rows="3" cols="80">@a + 1</textarea>
+        </div>
+        <div class="cell input">
+            <textarea id="input_3" rows="3" cols="80">1000</textarea>
+        </div>
+    </div>
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/jquery.hotkeys/jquery.hotkeys.js"></script>

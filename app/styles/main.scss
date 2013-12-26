@@ -98,7 +98,7 @@ body {
   border-left: 2px solid #d0d0d0;
   border-top: 1px solid #d0d0d0;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
 @mixin output-cell {
@@ -123,3 +123,11 @@ body {
   margin-top: 0px;
 }
 
+.notebook {
+  padding-left: 5px;
+  border-left: 1px solid gray;
+}
+
+.cell {
+  margin: 0px;
+}
