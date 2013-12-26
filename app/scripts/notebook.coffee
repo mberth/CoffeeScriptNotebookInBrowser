@@ -19,6 +19,8 @@ evaluateCell = (inputCell) ->
     console.error error
     newOutputCell.html displayPretty(error) + "<br>See console for details."
     newOutputCell.addClass "error"
+  insertCellCursorAfter newOutputCell
+  inputCell.editor.getInputField().blur()
 
 findOrCreateCellCursor = () ->
   cursor = $("#cursor")
@@ -35,21 +37,18 @@ insertCellCursorBefore = (cell) ->
 
 
 moveCellCursorDown = () ->
-  console.log "moveCellCursorDown"
   cursor = findOrCreateCellCursor()
   cell = $(cursor).next("div.cell")
   if cell
     insertCellCursorAfter(cell)
 
 moveCellCursorUp = () ->
-  console.log "moveCellCursorUp"
   cursor = findOrCreateCellCursor()
   cell = $(cursor).prev("div.cell")
   if cell
     insertCellCursorBefore(cell)
 
 moveCellCursorRight = () ->
-  console.log "moveCellCursorRight"
   cursor = findOrCreateCellCursor()
   nextCell = $(cursor).next(".cell")
   textarea = nextCell.children("textarea")
@@ -57,14 +56,16 @@ moveCellCursorRight = () ->
   editor.focus()
   cursor.remove()
 
+setCursorToEndOfDoc = (editor) ->
+  editor.setCursor editor.lineCount() - 1, editor.getLine(editor.lineCount() - 1).length
+
 moveCellCursorLeft = () ->
-  console.log "moveCellCursorLeft"
   cursor = findOrCreateCellCursor()
   previousCell = $(cursor).prev(".cell")
   textarea = previousCell.children("textarea")
   editor = textarea[0].editor
   editor.focus()
-  editor.setCursor editor.lineCount() - 1, editor.getLine(editor.lineCount() - 1).length
+  setCursorToEndOfDoc(editor)
   cursor.remove()
 
 
@@ -103,6 +104,7 @@ makeInputCell = (inputCell) ->
     mode: "coffeescript"
   inputCell.editor = editor
   addKeyMap editor, inputCell
+  editor
 
 
 for i in [1, 2, 3]
@@ -113,3 +115,14 @@ $(document).bind 'keydown', 'down', (ev) -> moveCellCursorDown()
 $(document).bind 'keydown', 'up', (ev) -> moveCellCursorUp()
 $(document).bind 'keydown', 'right', (ev) -> moveCellCursorRight()
 $(document).bind 'keydown', 'left', (ev) -> moveCellCursorLeft()
+
+$(document).keypress (ev) ->
+  if ev.target.nodeName.toLowerCase() == "body"
+    # we're not inside a textarea, create a new input cell
+    inputCellDiv = $ '<div class="cell input"><textarea id="input_1" rows="3" cols="80"></textarea></div>'
+    $(findOrCreateCellCursor()).replaceWith(inputCellDiv)
+    textarea = inputCellDiv.children("textarea")[0]
+    textarea.value = String.fromCharCode(ev.which)
+    editor = makeInputCell(textarea)
+    setCursorToEndOfDoc(editor)
+    editor.focus()
