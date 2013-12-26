@@ -48,6 +48,25 @@ moveCellCursorUp = () ->
   if cell
     insertCellCursorBefore(cell)
 
+moveCellCursorRight = () ->
+  console.log "moveCellCursorRight"
+  cursor = findOrCreateCellCursor()
+  nextCell = $(cursor).next(".cell")
+  textarea = nextCell.children("textarea")
+  editor = textarea[0].editor
+  editor.focus()
+  cursor.remove()
+
+moveCellCursorLeft = () ->
+  console.log "moveCellCursorLeft"
+  cursor = findOrCreateCellCursor()
+  previousCell = $(cursor).prev(".cell")
+  textarea = previousCell.children("textarea")
+  editor = textarea[0].editor
+  editor.focus()
+  editor.setCursor editor.lineCount() - 1, editor.getLine(editor.lineCount() - 1).length
+  cursor.remove()
+
 
 enclosingCell = (elem) ->
   elem.parentNode
@@ -82,6 +101,7 @@ addKeyMap = (editor, inputCell) ->
 makeInputCell = (inputCell) ->
   editor = CodeMirror.fromTextArea inputCell,
     mode: "coffeescript"
+  inputCell.editor = editor
   addKeyMap editor, inputCell
 
 
@@ -91,3 +111,5 @@ for i in [1, 2, 3]
 
 $(document).bind 'keydown', 'down', (ev) -> moveCellCursorDown()
 $(document).bind 'keydown', 'up', (ev) -> moveCellCursorUp()
+$(document).bind 'keydown', 'right', (ev) -> moveCellCursorRight()
+$(document).bind 'keydown', 'left', (ev) -> moveCellCursorLeft()
