@@ -126,3 +126,8 @@ $(document).keypress (ev) ->
     editor = makeInputCell(textarea)
     setCursorToEndOfDoc(editor)
     editor.focus()
+
+$(".notebook").click (ev) ->
+  if ev.target.className == 'notebook'
+
+    $(ev.target).css {background: 'yellow'}
