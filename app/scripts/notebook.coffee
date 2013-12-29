@@ -129,5 +129,9 @@ $(document).keypress (ev) ->
 
 $(".notebook").click (ev) ->
   if ev.target.className == 'notebook'
-
-    $(ev.target).css {background: 'yellow'}
+    point = {x: ev.pageX, y: ev.pageY}
+    cells = $.nearest(point, ".cell")
+    if point.y >= cells[0].offsetTop
+      insertCellCursorAfter($(cells[0]))
+    else
+      insertCellCursorBefore($(cells[0]))
