@@ -22,6 +22,7 @@
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/codemirror/lib/codemirror.js"></script>
     <script src="bower_components/codemirror/mode/coffeescript/coffeescript.js"></script>
+    <script src="bower_components/paper/dist/paper-full.js"></script>
     <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="bower_components/codemirror/theme/ambiance.css">
     <!-- build:css(.tmp) styles/main.css -->
@@ -45,7 +46,16 @@
             <textarea id="input_2" rows="3" cols="80">a + 1</textarea>
         </div>
         <div class="cell input">
-            <textarea id="input_3" rows="3" cols="80">1000</textarea>
+            <textarea id="input_3" rows="3" cols="80">
+withPaper ->
+    offset = new paper.Point(100, 100)
+    for alpha in [0..360] by 60
+        center = new paper.Point(0, 20)
+        center = center.rotate(alpha).add offset
+        new paper.Shape.Circle
+            center: center,
+            radius: 30,
+            strokeColor: 'black'</textarea>
         </div>
     </div>
 

@@ -16,6 +16,8 @@ evaluateCell = (inputCell) ->
     compiled = CoffeeScript.compile inputCell.value
     # remove the outer (function() ...).call(this);
     compiled = compiled[14...-17]
+    @inputCell = inputCell
+    @outputCell = newOutputCell
     result = eval.call window, compiled
     newOutputCell.text displayPretty(result)
   catch error
@@ -128,6 +130,14 @@ $(".notebook").click (ev) ->
     else
       insertCellCursorBefore($(cells[0]))
 
+# Use paper.js for graphics
+# -------------------------
+
+window.withPaper = (fun) ->
+  canvasDiv = $('<div class="cell graphics"><canvas width="600" height="200"></canvas></div>')
+  @paper.setup(canvasDiv[0].children[0])
+  @outputCell.before canvasDiv
+  fun()
 
 # Initialize the example notebook
 # -------------------------------
