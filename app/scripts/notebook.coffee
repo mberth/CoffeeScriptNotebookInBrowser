@@ -13,7 +13,10 @@ evaluateCell = (inputCell) ->
   newOutputCell = $('<div class="cell output"></div>')
   realCell.after newOutputCell
   try
-    result = CoffeeScript.eval inputCell.value
+    compiled = CoffeeScript.compile inputCell.value
+    # remove the outer (function() ...).call(this);
+    compiled = compiled[14...-17]
+    result = eval.call window, compiled
     newOutputCell.text displayPretty(result)
   catch error
     console.error error
