@@ -102,17 +102,6 @@ addKeyMap = (editor, inputCell) ->
         # let CodeMirror handle this
         CodeMirror.Pass
 
-makeInputCell = (inputCell) ->
-  editor = CodeMirror.fromTextArea inputCell,
-    mode: "coffeescript"
-  inputCell.editor = editor
-  addKeyMap editor, inputCell
-  editor
-
-
-for i in [1, 2, 3]
-  input = document.getElementById("input_#{i}")
-  makeInputCell input
 
 $(document).bind 'keydown', 'down', (ev) -> moveCellCursorDown()
 $(document).bind 'keydown', 'up', (ev) -> moveCellCursorUp()
@@ -138,3 +127,16 @@ $(".notebook").click (ev) ->
       insertCellCursorAfter($(cells[0]))
     else
       insertCellCursorBefore($(cells[0]))
+
+
+# Initialize the example notebook
+# -------------------------------
+
+makeInputCell = (inputCell) ->
+  editor = CodeMirror.fromTextArea inputCell,
+    mode: "coffeescript"
+  inputCell.editor = editor
+  addKeyMap editor, inputCell
+  editor
+
+makeInputCell(c) for c in $(".cell.input > textarea")
