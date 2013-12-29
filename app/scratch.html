@@ -57,6 +57,33 @@ withPaper ->
             radius: 30
             strokeColor: 'black'</textarea>
         </div>
+
+
+    <div class="cell input">
+            <textarea id="input_3" rows="3" cols="80">
+withPaper ->
+    offset = new paper.Point(100, 100)
+    for alpha in [0..360] by 60
+        center = new paper.Point(0, 20)
+        center = center.rotate(alpha).add offset
+        c = new paper.Shape.Circle
+            center: center
+            radius: 50
+            strokeColor: 'green'
+            strokeWidth: 3
+        c.strokeColor.hue = alpha</textarea>
+        </div>
+
+
+<div class="cell input">
+            <textarea id="input_3" rows="3" cols="80">
+withPaper ->
+    path = new paper.Path.Rectangle(point: [75, 75], size: [75, 75], strokeColor: 'black', strokeWidth: 2)
+    paper.view.onFrame = ->
+      path.rotate(3)</textarea>
+        </div>
+    </div>
+</div>
     </div>
 
     <script src="bower_components/jquery/jquery.js"></script>
