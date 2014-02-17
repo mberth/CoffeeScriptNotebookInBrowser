@@ -1,5 +1,5 @@
-CoffeeScriptNotebook
-====================
+CoffeeScript Notebook
+=====================
 
 Quick experiment: How hard can it be to make interactive CoffeeScript with a notebook interface 
 similar to [Mathematica](http://www.wolfram.com/mathematica/) or [IPython notebook](ipython.org/notebook.html)?
